@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sleepydatapeek"
+version = "0.1.4"
+description = "Peek at local datafiles fast!"
+authors = ["anthonybench <anythonybenchyep@gmail.com>"]
+license = "GNU GPL"
+readme = "README.md"
+keywords = ["pandas", "data"]
+packages = [
+    { include = "sleepydatapeek.py" },
+    { include = "toolchain/option_utils.py" },
+    { include = "toolchain/df_utils.py" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
