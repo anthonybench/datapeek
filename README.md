@@ -31,13 +31,13 @@ This repo is currently private, so adding this package is all the user needs to 
 ## **Usage ⚙**
 <hr>
 
-After setting up the tool, run `./sleepydatapeek.py [-h|--help]` to display this message:
+After setting up the tool, run `./main.py [-h|--help]` to display this message:
 ```txt
 This tool takes an input file path and outputs a limited dataframe to either stdout or a markdown file.
 
 
 Limit defaults to 20 rows, and can be overwritten.
-Format value has synonyms 'xlsx' and 'xls'
+Format value has synonyms 'xlsx' and 'xls'.
 --------------
 Usage:
   ./sleepydatapeek.py --format=[parquet|csv|json|excel] --path=<path> [--output=<path>] [--limit=<row-limit>]
