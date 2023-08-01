@@ -24,30 +24,36 @@ In short, it's hand to have something be able to spit out a configurable preview
 ## **Get Started 🚀**
 <hr>
 
-This repo is currently private, so adding this package is all the user needs to care about.
+```sh
+pip install sleepydatapeek
+pip install --upgrade sleepydatapeek
+```
 
 <br />
 
 ## **Usage ⚙**
 <hr>
 
-After setting up the tool, run `./main.py [-h|--help]` to display this message:
-```txt
-This tool takes an input file path and outputs a limited dataframe to either stdout or a markdown file.
+Fetch dependencies:
+```sh
+pip install -r requirements.txt
+```
 
+Set a function in your shell environment to run a script like:
+```sh
+# pip install sleepydatapeek
+# pip install --upgrade sleepydatapeek
 
-Limit defaults to 20 rows, and can be overwritten.
-Format value has synonyms 'xlsx' and 'xls'.
---------------
-Usage:
-  ./sleepydatapeek.py --format=[parquet|csv|json|excel] --path=<path> [--output=<path>] [--limit=<row-limit>]
-Examples:
-  ./sleepydatapeek.py --format=csv --path=sample-data/data.csv
-  ./sleepydatapeek.py --format=csv --path=sample-data/data.csv --limit=6
-  ./sleepydatapeek.py --format=csv --path=sample-data/data.csv --output=results.md
-Info:
-  ./sleepydatapeek.py [-h|--help]
---------------
+from sleepydatapeek import sleepydatapeek
+from sys import argv, exit
+
+sleepydatapeek(argv[1:])
+exit(0)
+```
+
+Presuming you've named said function `emoji`, print the help message:
+```sh
+sleepydatapeek --help
 ```
 
 <br />
@@ -56,14 +62,15 @@ Info:
 <hr>
 
   - [Pandas](https://pandas.pydata.org/docs/)
+  - [Tabulate](https://pypi.org/project/tabulate/)
+  - [Typer](https://typer.tiangolo.com/)
 
 <br />
 
 ## **Contribute 🤝**
 <hr>
 
-As stated in the welcome section, the corresponding GitHub repo is private. \
-However, feel free to [reach out with opinions](https://github.com/anthonybench)!
+If you have opinions, submit a PR 😊.
 
 <br />
 
@@ -84,6 +91,6 @@ Cheers to the chaos of modern life for needing personalized agility in schema as
 ![PyPI - License](https://img.shields.io/pypi/l/sleepydatapeek?style=plastic)
 
 <!-- / -->
-See [License](TODO) for the full license text.
+See [License](LICENSE) for the full license text.
 
 This package was authored by *Isaac Yep*.

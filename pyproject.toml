@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sleepydatapeek"
-version = "0.1.7"
+version = "0.2.0"
 description = "Peek at local datafiles fast!"
 authors = ["anthonybench <anythonybenchyep@gmail.com>"]
 license = "GNU GPL"
@@ -9,8 +9,8 @@ repository = "https://github.com/anthonybench/datapeek"
 keywords = ["pandas", "data"]
 packages = [
     { include = "sleepydatapeek.py" },
-    { include = "toolchain/option_utils.py" },
-    { include = "toolchain/df_utils.py" },
+    { include = "toolchain/commands.py" },
+    { include = "toolchain/utils.py" },
 ]
 
 [tool.poetry.dependencies]
