@@ -13,17 +13,12 @@ Usage:
 '''
 
 # stdlib
-from os import path
-from pathlib import Path
-from typing import List, Dict, Union
-from sys import argv, exit, getsizeof
-from subprocess import call, check_output
-# custom modules
+from sys import exit
+# custom
 from toolchain.commands import datapeek_logic
 # 3rd party
 try:
   import typer
-  from yaml import safe_load, YAMLError
 except ModuleNotFoundError as e:
   print("Error: Missing one or more 3rd-party packages (pip install).")
   exit(1)

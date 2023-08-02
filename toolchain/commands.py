@@ -1,11 +1,8 @@
 # stdlib
-from os import path
 from pathlib import Path, PurePosixPath
-from typing import List, Dict, Union
-from sys import argv, exit, getsizeof
+from sys import exit
 import pandas as pd
-from subprocess import call, check_output
-# custom modules
+# custom
 from toolchain.utils import *
 # 3rd party
 try:
@@ -19,7 +16,7 @@ except ModuleNotFoundError as e:
 
 #───Commands─────────────────
 def datapeek_logic(input_path:str, output_path:str='') -> str:
-  '''<brief-description>'''
+  '''builds and delivers payload string'''
 
   supported_formats = [
     'csv',
