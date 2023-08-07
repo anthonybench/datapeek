@@ -28,15 +28,16 @@ def sleepydatapeek(input_path:str, output_path:str='') -> str:
   app = typer.Typer()
   @app.command()
   def datapeek(input_path:str, output_path:str='') -> str:
-    '''TITLE
+    '''Data Peek
 
-    DESCRIPTION
+    Get a summary of the contents of a data file quickly.
 
     ───Params
-    my_param:type :: description
+    input_path:str :: local datafile path
+    output_path:str :: path to write to, else print to console
 
     ───Return
-    type :: description
+    str :: formatted summary with tabulated sample
     '''
     return datapeek_logic(input_path, output_path)
   if (__name__ == 'sleepydatapeek') or (__name__ == '__main__'):
