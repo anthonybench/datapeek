@@ -15,7 +15,7 @@ Usage:
 # stdlib
 from sys import exit
 # custom
-from toolchain.commands import datapeek_logic
+from datapeek_toolchain.commands import datapeek_logic
 # 3rd party
 try:
   import typer
