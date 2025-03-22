@@ -1,11 +1,16 @@
-# **DataPeek**
+# **sleepydatapeek**
 *A quick way to peek at local datafiles.*
 
 <br />
 
 ## **Welcome to sleepydatapeek!**
-In short, it's hand to have something be able to spit out a configurable preview of data from a file, and bonus points if you can just as easily output in markdown. It would also be nice if said tool could read all the formats.\
-**DataPeek** has entered the chat!
+One often needs to spit out a configurable preview of a data file. It would also be nice if said tool could detect and read several formats automatically.\
+**`sleepydatapeek`** has entered the chat!
+
+Quickly summarize data files such as:
+- `csv`
+- `parquet`
+- `json`
 
 <br />
 
@@ -51,9 +56,9 @@ sleepydatapeek(argv[1:])
 exit(0)
 ```
 
-Presuming you've named said function `emoji`, print the help message:
+Presuming you've named said function `datapeek`, print the help message:
 ```sh
-sleepydatapeek --help
+datapeek --help
 ```
 
 <br />
@@ -64,13 +69,19 @@ sleepydatapeek --help
   - [Pandas](https://pandas.pydata.org/docs/)
   - [Tabulate](https://pypi.org/project/tabulate/)
   - [Typer](https://typer.tiangolo.com/)
+  - [PyArrow](https://arrow.apache.org/docs/python/index.html)
 
 <br />
 
 ## **Contribute 🤝**
 <hr>
 
-If you have opinions, submit a PR 😊.
+If you have thoughts on how to make the tool more pragmatic, submit a PR 😊.
+
+To add support for more data/file types:
+1. append extension name to `supported_formats` in `sleepydatapeek_toolchain.params.py`
+2. add detection logic branch to `main` in `sleepydatapeek_toolchain/commands.py`
+3. update this readme
 
 <br />
 

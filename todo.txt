@@ -1,2 +1,0 @@
-- fix description in --help option
-- doesn't seem to work 😭
