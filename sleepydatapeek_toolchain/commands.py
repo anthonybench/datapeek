@@ -66,6 +66,7 @@ def summarizeDataframe(
   ───Params
   df:pd.DataFrame :: dataframe to inspect
   filename:str :: filename, for display purposes
+  groupby_count_column:str :: optional column name to run groupby counts on
 
   ───Return
   str :: string to display
