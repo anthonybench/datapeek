@@ -46,14 +46,7 @@ pip install -r requirements.txt
 
 Set a function in your shell environment to run a script like:
 ```sh
-# pip install sleepydatapeek
-# pip install --upgrade sleepydatapeek
-
-from sleepydatapeek import sleepydatapeek
-from sys import argv, exit
-
-sleepydatapeek(argv[1:])
-exit(0)
+alias datapeek='python -m sleepydatapeek'
 ```
 
 Presuming you've named said function `datapeek`, print the help message:
