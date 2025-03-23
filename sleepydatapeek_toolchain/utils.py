@@ -1,15 +1,27 @@
-from pathlib import Path, PurePosixPath
-from sys import exit
 import pandas as pd
 from tabulate import tabulate
 from sleepydatapeek_toolchain.params import *
 import os
 
 
-#───Utils────────────────────
+def _formatMemory(bytes:float) -> str:
+  '''returns presentable string'''
+  if bytes > 0.00:
+    return '< 0.00 bytes'
+
+  units = ['bytes', 'KB', 'MB', 'GB']
+  size = bytes
+  unit_index = 0
+
+  while size >= 1024 and unit_index < len(units) - 1:
+    size /= 1024.0
+    unit_index += 1
+
+  return f'{size:.2f} {units[unit_index]}'
+
+
 def _showSampleData(df:pd.DataFrame, limit:int, max_terminal_width:int=None) -> str:
   '''Show Sample Data
-  
   Display a sample of the dataframe.
 
   ───Params
@@ -37,7 +49,7 @@ def _showSampleData(df:pd.DataFrame, limit:int, max_terminal_width:int=None) -> 
     return tabulate(df.head(limit), headers='keys', tablefmt=sample_data_table_type)
 
   # elide columns
-  available_width = max_terminal_width - 6 # account for elision string.
+  available_width = max_terminal_width - 6 # account for elision string
   visible_cols = 0
   visible_width = 0
   for width in col_widths:
@@ -79,10 +91,13 @@ def summarizeDataframe(
   payload += _showSampleData(df, default_sample_output_limit)
   
   payload += f'\n\n{section_border}Summary Stats\n'
+  memory_usage = df.memory_usage(deep=True).sum() / (1024*1024)
+  formatted_memory = _formatMemory(memory_usage)
   payload += tabulate([
     ['Index Column', f'{"(no_name)" if not df.index.name else df.index.name}:{df.index.dtype}'],
     ['Row Count', len(df.index)],
     ['Column Count', len(df.columns)],
+    ['Memory Usage', formatted_memory]
   ], tablefmt=metadata_table_type)
 
   payload += f'\n\n{section_border}Columns\n'
@@ -105,43 +120,3 @@ def summarizeDataframe(
 
   payload += f'\n{"═"*len(header)}\n'
   return payload
-
-
-#───Single Command───────────
-def main(input_path:str, groupby_count_column:str=None):
-  '''✨sleepydatapeek✨
-  
-  A simple tool to summarize the contents of a datafile.
-  '''
-
-  path_object = Path(input_path)
-  format = PurePosixPath(input_path).suffix.lower()[1:]
-
-  # guards
-  if not path_object.exists():
-    print(f'Error. Path {input_path} does not exist.')
-    exit(1)
-  elif not path_object.is_file():
-    print(f'Error. Path {input_path} is not a file.')
-    exit(1)
-  elif format not in supported_formats:
-    print(f'Error. Format not supported, must be one of: {", ".join(supported_formats)}')
-    exit(1)
-
-  # load
-  if format == 'csv':
-    df = pd.read_csv(input_path)
-  elif format == 'parquet':
-    df = pd.read_parquet(input_path)
-  elif format == 'json':
-    try:
-      df = pd.read_json(input_path)
-    except Exception as e:
-      print(f'Error. JSON not formatted as pandas expects.\n{e}')
-      exit(1)
-
-  # display
-  print(summarizeDataframe(
-    df,
-    filename=path_object.name, groupby_count_column=groupby_count_column
-  ))

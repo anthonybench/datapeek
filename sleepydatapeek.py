@@ -7,7 +7,7 @@ Usage:
 '''
 
 import typer
-from sleepydatapeek_toolchain.functions import *
+from sleepydatapeek_toolchain.command_logic import main
 
 if __name__ == "__main__":
   typer.run(main)
