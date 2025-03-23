@@ -2,6 +2,8 @@ supported_formats = [
   'csv',
   'json',
   'parquet',
+  'pkl',
+
 ]
 
 # these could later be a config file in a user's home directory

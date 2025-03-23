@@ -11,6 +11,7 @@ Quickly summarize data files such as:
 - `csv`
 - `parquet`
 - `json`
+- `pkl`
 
 <br />
 
@@ -73,7 +74,7 @@ If you have thoughts on how to make the tool more pragmatic, submit a PR 😊.
 
 To add support for more data/file types:
 1. append extension name to `supported_formats` in `sleepydatapeek_toolchain.params.py`
-2. add detection logic branch to `main` in `sleepydatapeek_toolchain/commands.py`
+2. add detection logic branch to the `main` function in `sleepydatapeek_toolchain/command_logic.py`
 3. update this readme
 
 <br />

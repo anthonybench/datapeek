@@ -26,19 +26,25 @@ def main(input_path:str, groupby_count_column:str=None):
     exit(1)
 
   # load
-  if format == 'csv':
-    df = pd.read_csv(input_path)
-  elif format == 'parquet':
-    df = pd.read_parquet(input_path)
-  elif format == 'json':
-    try:
-      df = pd.read_json(input_path)
-    except Exception as e:
-      print(f'Error. JSON not formatted as pandas expects.\n{e}')
-      exit(1)
+  match format:
+    case 'csv':
+      df = pd.read_csv(input_path)
+    case 'parquet':
+      df = pd.read_parquet(input_path)
+    case 'json':
+      try:
+        df = pd.read_json(input_path)
+      except Exception as e:
+        print(f'Error. JSON not formatted as pandas expects.\n{e}')
+        exit(1)
+    case 'pkl':
+      df = pd.read_pickle(input_path)
+    # case 'xlsx' | 'xls':
+    #   df = pd.read_excel(input_path)
 
   # display
   print(summarizeDataframe(
     df,
-    filename=path_object.name, groupby_count_column=groupby_count_column
+    filename=path_object.name,
+    groupby_count_column=groupby_count_column
   ))
