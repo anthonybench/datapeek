@@ -7,24 +7,12 @@
 One often needs to spit out a configurable preview of a data file. It would also be nice if said tool could detect and read several formats automatically.\
 **`sleepydatapeek`** has entered the chat!
 
-Quickly summarize data files such as:
+Quickly summarize data files of type:
 - `csv`
 - `parquet`
 - `json`
 - `pkl`
 - `xlsx`
-
-<br />
-
-### **Table of Contents** 📖
-<hr>
-
-  - **Get Started**
-  - Usage
-  - Technologies
-  - Contribute
-  - Acknowledgements
-  - License/Stats/Author
 
 <br />
 
@@ -34,6 +22,9 @@ Quickly summarize data files such as:
 ```sh
 pip install sleepydatapeek
 pip install --upgrade sleepydatapeek
+
+python -m sleepydatapeek my_data.csv
+python -m sleepydatapeek --help
 ```
 
 <br />
@@ -78,13 +69,6 @@ To add support for more data/file types:
 1. append extension name to `supported_formats` in `sleepydatapeek_toolchain.params.py`
 2. add detection logic branch to the `main` function in `sleepydatapeek_toolchain/command_logic.py`
 3. update this readme
-
-<br />
-
-## **Acknowledgements 💙**
-<hr>
-
-Cheers to the chaos of modern life for needing personalized agility in schema assessment.
 
 <br />
 
