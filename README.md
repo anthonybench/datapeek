@@ -12,6 +12,7 @@ Quickly summarize data files such as:
 - `parquet`
 - `json`
 - `pkl`
+- `xlsx`
 
 <br />
 
@@ -64,6 +65,7 @@ datapeek --help
   - [Tabulate](https://pypi.org/project/tabulate/)
   - [Typer](https://typer.tiangolo.com/)
   - [PyArrow](https://arrow.apache.org/docs/python/index.html)
+  - [openpyxl](https://pypi.org/project/openpyxl/)
 
 <br />
 

@@ -39,8 +39,8 @@ def main(input_path:str, groupby_count_column:str=None):
         exit(1)
     case 'pkl':
       df = pd.read_pickle(input_path)
-    # case 'xlsx' | 'xls':
-    #   df = pd.read_excel(input_path)
+    case 'xlsx':
+      df = pd.read_excel(input_path, engine='openpyxl')
 
   # display
   print(summarizeDataframe(

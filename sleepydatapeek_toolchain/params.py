@@ -3,7 +3,7 @@ supported_formats = [
   'json',
   'parquet',
   'pkl',
-
+  'xlsx',
 ]
 
 # these could later be a config file in a user's home directory
