@@ -100,7 +100,7 @@ def summarizeDataframe(
     ['Memory Usage', formatted_memory]
   ], tablefmt=metadata_table_type)
 
-  payload += f'\n\n{section_border}Columns\n'
+  payload += f'\n\n{section_border}Schema\n'
   schema = df.dtypes.apply(lambda x: x.name).to_dict()
   payload += tabulate(
     [[name, dtype] for name, dtype in schema.items()],
