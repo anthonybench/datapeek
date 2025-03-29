@@ -1,4 +1,5 @@
 from pathlib import Path, PurePosixPath
+from rich import print
 from sys import exit
 import pandas as pd
 from sleepydatapeek_toolchain.params import *

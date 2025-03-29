@@ -1,7 +1,8 @@
 import pandas as pd
+from rich import print
+import os
 from tabulate import tabulate
 from sleepydatapeek_toolchain.params import *
-import os
 
 
 def _formatMemory(bytes:float) -> str:
@@ -88,9 +89,9 @@ def summarizeDataframe(
   section_border = '═'*3
 
   payload += f'\n{header}\n'
-  payload += _showSampleData(df, default_sample_output_limit)
+  payload += f'[bold green]{_showSampleData(df, default_sample_output_limit)}[/bold green]'
   
-  payload += f'\n\n{section_border}Summary Stats\n'
+  payload += f'\n\n[bold green]{section_border}Summary Stats[/bold green]\n'
   memory_usage = df.memory_usage(deep=True).sum() / (1024*1024)
   formatted_memory = _formatMemory(memory_usage)
   payload += tabulate([
@@ -100,7 +101,7 @@ def summarizeDataframe(
     ['Memory Usage', formatted_memory]
   ], tablefmt=metadata_table_type)
 
-  payload += f'\n\n{section_border}Schema\n'
+  payload += f'\n\n[bold green]{section_border}Schema[/bold green]\n'
   schema = df.dtypes.apply(lambda x: x.name).to_dict()
   payload += tabulate(
     [[name, dtype] for name, dtype in schema.items()],
