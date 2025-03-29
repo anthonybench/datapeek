@@ -83,7 +83,7 @@ $ datapeek data.xlsx
 
 Optionally, you can also get group-by counts for distinct values of a given column:
 ```sh
-datapeek test.xlsx --groupby-count-column=ProductName
+$ datapeek test.xlsx --groupby-count-column=ProductName
 
 # typical output (elided)
 
