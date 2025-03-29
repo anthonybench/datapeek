@@ -26,7 +26,7 @@ pip install sleepydatapeek
 pip install --upgrade sleepydatapeek
 
 python -m sleepydatapeek --help
-python -m sleepydatapeek my_data.csv
+python -m sleepydatapeek data.csv
 ```
 
 <br />
@@ -39,11 +39,11 @@ Set a function in your shell environment to run a script like:
 alias datapeek='python -m sleepydatapeek'
 ```
 
-Presuming you've named said function `datapeek`, print the help message:
+Presuming you've named said macro `datapeek`, print the help message:
 ```sh
-$ datapeek test.xlsx
+$ datapeek data.xlsx
 
-════════════════════ test.xlsx ════════════════════
+════════════════════ data.xlsx ════════════════════
       Unnamed: 0    CustomerID  ProductName      Quantity  OrderDate      Price
 --  ------------  ------------  -------------  ----------  -----------  -------
  0             0           101  Laptop                  2  2023-10-26      1200
