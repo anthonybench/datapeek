@@ -1,2 +1,2 @@
-- github cicd for pypi build
+- github action for pypi build
 - add support for a datapeek home directory config yaml
