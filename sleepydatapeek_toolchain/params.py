@@ -5,6 +5,9 @@ supported_formats = {
   'pkl': 'data',
   'xlsx': 'data',
   'pdf': 'metadata',
+  'png': 'metadata',
+  'jpg': 'metadata',
+  'jpeg': 'metadata',
 }
 
 # these could later be a config file in a user's home directory

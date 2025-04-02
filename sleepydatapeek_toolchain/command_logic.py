@@ -57,3 +57,9 @@ def main(input_path:str, groupby_count_column:str=None):
       ))
     case 'metadata' if format == 'pdf':
       print(f'[white]{getPDFMetadata(pdf_path=path_object)}[/white]')
+    case 'metadata' if format == 'png':
+      print(f'\n[green]🖼️ {path_object.name}[/green]')
+      print(getPNGMetadata(image_path=path_object))
+      print()
+    case 'metadata' if format in ['jpg', 'jpeg']:
+      print(getJPGMetadata(image_path=path_object))

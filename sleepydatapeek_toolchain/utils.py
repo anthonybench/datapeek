@@ -1,9 +1,14 @@
 import pandas as pd
 from pathlib import Path
+from typing import Dict
 from rich import print
+from pprint import pformat
 import os
+import xml.etree.ElementTree as ET
 from tabulate import tabulate
 import PyPDF2
+from PIL import Image
+from PIL.ExifTags import TAGS
 from sleepydatapeek_toolchain.params import *
 
 
@@ -130,7 +135,7 @@ def summarizeDataframe(
   return payload
 
 
-def getPDFMetadata(pdf_path:Path) -> None:
+def getPDFMetadata(pdf_path:Path) -> str:
   '''prints pdf document metadata'''
   filename = pdf_path.name
   plain_path = str(pdf_path)
@@ -143,3 +148,74 @@ def getPDFMetadata(pdf_path:Path) -> None:
     return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
   except Exception as e:
     errorMessage(f'Failed to read metadata from supposed pdf file: {plain_path}\n{e}')
+
+
+def _element_to_dict(element:ET.Element) -> Dict[str, any]:
+  """Recursively converts an XML element and its children to a dictionary"""
+  data = {}
+  for child in element:
+    child_data = _element_to_dict(child)
+    if child.tag in data:
+      if not isinstance(data[child.tag], list):
+        data[child.tag] = [data[child.tag]]
+      data[child.tag].append(child_data)
+    else:
+      data[child.tag] = child_data
+
+  if element.attrib:
+    data['@attributes'] = element.attrib
+
+  if element.text and not data:
+    return element.text.strip()
+  elif element.text and data:
+    data['#text'] = element.text.strip()
+
+  return {element.tag: data}
+
+
+def xml_string_to_dict(xml_string:str) -> Dict[str, any]:
+  """Converts an XML string into a Python dictionary"""
+  root = ET.fromstring(xml_string)
+  return _element_to_dict(root)
+
+
+def getPNGMetadata(image_path:Path) -> Dict[str, any]:
+  filename = image_path.name
+  plain_path = str(image_path)
+  try:
+    img = Image.open(plain_path)
+    metadata = img.info
+    if metadata:
+      metadata_payload = {}
+      for key, value in metadata.items():
+        if len(value) < 100:
+          metadata_payload[key] = value
+        elif key == 'XML:com.adobe.xmp':
+          metadata_payload[key] = xml_string_to_dict(value)
+      return metadata_payload
+    else:
+      return f"No metadata in file {filename}."
+  except Exception as e:
+    errorMessage(f'Failed to read metadata from supposed image file: {image_path}\n{e}')
+
+def getJPGMetadata(image_path:str) -> None:
+  '''prints jpg image metadata'''
+  filename = image_path.name
+  plain_path = str(image_path)
+  try:
+    img = Image.open(plain_path)
+    exif_data = img._getexif()
+    if exif_data:
+      metadata_table_list = []
+      for tag_id, value in exif_data.items():
+        tag = TAGS.get(tag_id, tag_id)
+        if len(str(value)) < 100:
+          metadata_table_list.append([tag, value])
+      tabulated_metadata = tabulate(metadata_table_list, tablefmt=metadata_table_type)
+      return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
+    else:
+      return f"No metadata in file {filename}."
+  except FileNotFoundError:
+    print("File not found.")
+  except AttributeError:
+    return f"No EXIF data found in file {filename}."

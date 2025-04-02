@@ -16,8 +16,12 @@ Quickly summarize data files of type:
 
 And glance metadata for files:
 - `pdf`
+- `png`
+- `jpg`|`jpeg`
 
 > ℹ️ Note that this tool presumes format by file extension. If you leave out extensions, or give csv data a `.json` extension for funsies, then you're being silly.
+
+> ℹ️ Due to how metadata formats vary across file types, how metadata is presented varies.
 
 <br />
 
@@ -150,6 +154,7 @@ $ datapeek resume.pdf
   - [PyArrow](https://arrow.apache.org/docs/python/index.html)
   - [openpyxl](https://pypi.org/project/openpyxl/)
   - [PyPDF2](https://pypdf2.readthedocs.io/en/stable/)
+  - [PIllow](https://pypi.org/project/pillow/)
 
 <br />
 
