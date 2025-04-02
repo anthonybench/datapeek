@@ -2,7 +2,6 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict
 from rich import print
-from pprint import pformat
 import os
 import xml.etree.ElementTree as ET
 from tabulate import tabulate
