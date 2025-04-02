@@ -14,6 +14,9 @@ Quickly summarize data files of type:
 - `pkl`
 - `xlsx`
 
+And glance metadata for files:
+- `pdf`
+
 > ℹ️ Note that this tool presumes format by file extension. If you leave out extensions, or give csv data a `.json` extension for funsies, then you're being silly.
 
 <br />
@@ -27,6 +30,7 @@ pip install --upgrade sleepydatapeek
 
 python -m sleepydatapeek --help
 python -m sleepydatapeek data.csv
+python -m sleepydatapeek doc.pdf
 ```
 
 <br />
@@ -114,6 +118,27 @@ $ datapeek test.xlsx --groupby-count-column=ProductName
 
 ```
 
+You can check metadata for certain file types too:
+```txt
+$ datapeek resume.pdf
+
+📄test.pdf
+╭──────────────┬─────────────────────────────────╮
+│ CreationDate │ D:20250306111007-06'00'         │
+├──────────────┼─────────────────────────────────┤
+│ Creator      │ Adobe InDesign 20.1 (Macintosh) │
+├──────────────┼─────────────────────────────────┤
+│ ModDate      │ D:20250306111048-06'00'         │
+├──────────────┼─────────────────────────────────┤
+│ Producer     │ Adobe PDF Library 17.0          │
+├──────────────┼─────────────────────────────────┤
+│ Trapped      │ /False                          │
+├──────────────┼─────────────────────────────────┤
+│ Length       │ 48 pages                        │
+╰──────────────┴─────────────────────────────────╯
+
+```
+
 <br />
 
 ## **Technologies 🧰**
@@ -124,6 +149,7 @@ $ datapeek test.xlsx --groupby-count-column=ProductName
   - [Typer](https://typer.tiangolo.com/)
   - [PyArrow](https://arrow.apache.org/docs/python/index.html)
   - [openpyxl](https://pypi.org/project/openpyxl/)
+  - [PyPDF2](https://pypdf2.readthedocs.io/en/stable/)
 
 <br />
 

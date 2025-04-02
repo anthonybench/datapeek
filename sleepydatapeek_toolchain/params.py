@@ -1,10 +1,11 @@
-supported_formats = [
-  'csv',
-  'json',
-  'parquet',
-  'pkl',
-  'xlsx',
-]
+supported_formats = {
+  'csv':'data',
+  'json': 'data',
+  'parquet': 'data',
+  'pkl': 'data',
+  'xlsx': 'data',
+  'pdf': 'metadata',
+}
 
 # these could later be a config file in a user's home directory
 default_sample_output_limit = 5

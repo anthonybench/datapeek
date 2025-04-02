@@ -1,8 +1,15 @@
 import pandas as pd
+from pathlib import Path
 from rich import print
 import os
 from tabulate import tabulate
+import PyPDF2
 from sleepydatapeek_toolchain.params import *
+
+
+def errorMessage(message:str) -> None:
+  '''log error message'''
+  print(f'[bold][red]Error[/bold]. {message}[/red]')
 
 
 def _formatMemory(bytes:float) -> str:
@@ -121,3 +128,18 @@ def summarizeDataframe(
 
   payload += f'\n{"═"*len(header)}\n'
   return payload
+
+
+def getPDFMetadata(pdf_path:Path) -> None:
+  '''prints pdf document metadata'''
+  filename = pdf_path.name
+  plain_path = str(pdf_path)
+  try:
+    reader = PyPDF2.PdfReader(plain_path)
+    metadata = reader.metadata
+    metadata_table_list = [[f'{k.lstrip("/")}',v] for k,v in metadata.items()]
+    metadata_table_list.append(['Length', f'{len(reader.pages)} pages'])
+    tabulated_metadata = tabulate(metadata_table_list, tablefmt=metadata_table_type)
+    return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
+  except Exception as e:
+    errorMessage(f'Failed to read metadata from supposed pdf file: {plain_path}\n{e}')
