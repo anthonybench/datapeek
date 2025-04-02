@@ -180,6 +180,7 @@ def xml_string_to_dict(xml_string:str) -> Dict[str, any]:
 
 
 def getPNGMetadata(image_path:Path) -> Dict[str, any]:
+  '''returns pared-down dictionary of png image metadata'''
   filename = image_path.name
   plain_path = str(image_path)
   try:
@@ -198,8 +199,9 @@ def getPNGMetadata(image_path:Path) -> Dict[str, any]:
   except Exception as e:
     errorMessage(f'Failed to read metadata from supposed image file: {image_path}\n{e}')
 
-def getJPGMetadata(image_path:str) -> None:
-  '''prints jpg image metadata'''
+
+def getJPGMetadata(image_path:str) -> str:
+  '''returns formatted jpg image metadata string'''
   filename = image_path.name
   plain_path = str(image_path)
   try:
@@ -215,7 +217,5 @@ def getJPGMetadata(image_path:str) -> None:
       return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
     else:
       return f"No metadata in file {filename}."
-  except FileNotFoundError:
-    print("File not found.")
   except AttributeError:
     return f"No EXIF data found in file {filename}."
