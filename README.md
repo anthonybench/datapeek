@@ -173,7 +173,7 @@ To add support for more data/file types:
 ## **License, Stats, Author 📜**
 <hr>
 
-<img align="right" alt="example image tag" src="https://i.imgur.com/jtNwEWu.png" width="200" />
+<img align="right" alt="example image tag" src="https://i.imgur.com/ZHnNGeO.png" width="200" />
 
 <!-- badge cluster -->
 ![PyPI - License](https://img.shields.io/pypi/l/sleepydatapeek?style=plastic)
