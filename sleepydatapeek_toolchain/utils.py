@@ -48,7 +48,7 @@ def _showSampleData(df:pd.DataFrame, limit:int, max_terminal_width:int=None) -> 
     try:
       max_terminal_width = os.get_terminal_size().columns
     except OSError:
-      max_terminal_width = default_max_terminal_width
+      max_terminal_width = set_max_terminal_width
 
   # don't elide if <= 2 columns
   if len(df.columns) <= 2:
@@ -100,7 +100,7 @@ def summarizeDataframe(
   section_border = '═'*3
 
   payload += f'\n{header}\n'
-  payload += f'[bold green]{_showSampleData(df, default_sample_output_limit)}[/bold green]'
+  payload += f'[bold green]{_showSampleData(df, sample_output_limit)}[/bold green]'
   
   payload += f'\n\n[bold green]{section_border}Summary Stats[/bold green]\n'
   memory_usage = df.memory_usage(deep=True).sum() / (1024*1024)
@@ -110,13 +110,13 @@ def summarizeDataframe(
     ['Row Count', len(df.index)],
     ['Column Count', len(df.columns)],
     ['Memory Usage', formatted_memory]
-  ], tablefmt=metadata_table_type)
+  ], tablefmt=datapeek_table_style)
 
   payload += f'\n\n[bold green]{section_border}Schema[/bold green]\n'
   schema = df.dtypes.apply(lambda x: x.name).to_dict()
   payload += tabulate(
     [[name, dtype] for name, dtype in schema.items()],
-    tablefmt=metadata_table_type)
+    tablefmt=datapeek_table_style)
 
   if groupby_count_column:
     try:
@@ -125,7 +125,7 @@ def summarizeDataframe(
       payload += f'  (row counts for distinct values of {groupby_count_column})\n'
       payload += tabulate(
         [[name, count] for name, count in counts_dict.items()],
-        tablefmt=groupby_counts_table_type)
+        tablefmt=datapeek_table_style)
     except KeyError:
       column_names_formatted = '\n- '.join(df.columns)
       payload += f"❗ Error. Column '{groupby_count_column}' not found in data file. Choose one of:\n- {column_names_formatted}"
@@ -143,7 +143,7 @@ def getPDFMetadata(pdf_path:Path) -> str:
     metadata = reader.metadata
     metadata_table_list = [[f'{k.lstrip("/")}',v] for k,v in metadata.items()]
     metadata_table_list.append(['Length', f'{len(reader.pages)} pages'])
-    tabulated_metadata = tabulate(metadata_table_list, tablefmt=metadata_table_type)
+    tabulated_metadata = tabulate(metadata_table_list, tablefmt=datapeek_table_style)
     return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
   except Exception as e:
     errorMessage(f'Failed to read metadata from supposed pdf file: {plain_path}\n{e}')
@@ -212,7 +212,7 @@ def getJPGMetadata(image_path:str) -> str:
         tag = TAGS.get(tag_id, tag_id)
         if len(str(value)) < 100:
           metadata_table_list.append([tag, value])
-      tabulated_metadata = tabulate(metadata_table_list, tablefmt=metadata_table_type)
+      tabulated_metadata = tabulate(metadata_table_list, tablefmt=datapeek_table_style)
       return f'\n[green]📄 {filename}[/green]\n{tabulated_metadata}\n'
     else:
       return f"No metadata in file {filename}."
