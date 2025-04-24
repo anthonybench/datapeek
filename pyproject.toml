@@ -1,6 +1,6 @@
 [project]
 name = "sleepydatapeek"
-version = "1.7.1"
+version = "1.7.2"
 description = "Peek at local datafiles fast!"
 keywords = ["pandas", "data", "analysis", "cli"]
 
