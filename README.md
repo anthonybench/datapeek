@@ -26,7 +26,6 @@ And glance metadata for files:
 <br />
 
 ## **Get Started 🚀**
-<hr>
 
 ```sh
 pip install sleepydatapeek
@@ -40,7 +39,6 @@ python -m sleepydatapeek doc.pdf
 <br />
 
 ## **Usage ⚙**
-<hr>
 
 Set a function in your shell environment to run a script like:
 ```sh
@@ -145,8 +143,19 @@ $ datapeek resume.pdf
 
 <br />
 
+## **SleepyConfig**
+You can personalize a few aspects of datapeek's behavior via a file strictly named `~/.sleepyconfig/params.yml`. Paste the following into said file, and tinker to your liking:
+```yml
+datapeek_sample_size: 5
+datapeek_table_style: 'rounded_grid'
+datapeek_max_terminal_width: 80
+```
+
+All other *sleepytools* use this file as well. Browse [my PyPI](https://pypi.org/user/sleepyboy/) if you're interested!
+
+<br />
+
 ## **Technologies 🧰**
-<hr>
 
   - [Pandas](https://pandas.pydata.org/docs/)
   - [Tabulate](https://pypi.org/project/tabulate/)
@@ -159,7 +168,6 @@ $ datapeek resume.pdf
 <br />
 
 ## **Contribute 🤝**
-<hr>
 
 If you have thoughts on how to make the tool more pragmatic, submit a PR 😊.
 
@@ -171,7 +179,6 @@ To add support for more data/file types:
 <br />
 
 ## **License, Stats, Author 📜**
-<hr>
 
 <img align="right" alt="example image tag" src="https://i.imgur.com/ZHnNGeO.png" width="200" />
 
@@ -184,3 +191,5 @@ To add support for more data/file types:
 See [License](LICENSE) for the full license text.
 
 This package was authored by *Isaac Yep*.
+👉 [GitHub](https://github.com/anthonybench/datapeek) \
+👉 [PyPI](https://pypi.org/project/sleepydatapeek/)
