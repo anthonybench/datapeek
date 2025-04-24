@@ -1,3 +1,2 @@
 - github action for pypi build
-- update readme to reflect `~/.sleepyconfig/params.yml`
 - implement logging
