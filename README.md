@@ -192,6 +192,6 @@ To add support for more data/file types:
 
 See [License](LICENSE) for the full license text.
 
-This package was authored by *Isaac Yep*.
+This package was authored by *Isaac Yep*. \
 👉 [GitHub](https://github.com/anthonybench/datapeek) \
 👉 [PyPI](https://pypi.org/project/sleepydatapeek/)
