@@ -23,6 +23,8 @@ And glance metadata for files:
 
 > ℹ️ Due to how metadata formats vary across file types, how metadata is presented varies.
 
+> ℹ️ For further configuration options, see the [sleepyconfig](#sleepyconfig) section at the bottom.
+
 <br />
 
 ## **Get Started 🚀**
