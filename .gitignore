@@ -131,3 +131,4 @@ dmypy.json
 # personal
 *.DS_Store*
 _ephemeral/
+.claude/
