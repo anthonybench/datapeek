@@ -1,7 +1,7 @@
 """Shared "sleepy utils" global configuration.
 
-All sleepy utilities (sleepydatapeek, sleepyconvert, and future tools) read
-their user-tunable parameters from a single shared file at
+All sleepy utilities (sleepydatapeek, sleepyconvert, sleepybricks, and future
+tools) read their user-tunable parameters from a single shared file at
 ``~/sleepyconfig/params.yml``. When the file is missing it is created with the
 default template below and a message is printed to the console.
 
@@ -31,6 +31,11 @@ DEFAULT_PARAMS: dict[str, Any] = {
     "datapeek_table_style": "rounded_grid",
     # sleepyconvert
     "convert_output_archive_dir": None,
+    # sleepybricks
+    "bricks_table_style": "simple",
+    "serverless_warehouse_name": "<env>_serverless_warehouse",
+    "env_emojis": {"dev": "👩‍💻", "stg": "🔧", "us": "🇺🇸"},
+    "display_names": {"dev": "Development", "stg": "Staging", "us": "United States"},
 }
 
 # Verbatim contents written when the params file does not yet exist. This is
@@ -41,6 +46,18 @@ datapeek_table_style: rounded_grid
 
 # sleepyconvert
 convert_output_archive_dir: null
+
+# sleepybricks
+bricks_table_style: simple
+serverless_warehouse_name: <env>_serverless_warehouse
+env_emojis:
+  dev: "👩‍💻"
+  stg: "🔧"
+  us: "🇺🇸"
+display_names:
+  dev: "Development"
+  stg: "Staging"
+  us: "United States"
 """
 
 
