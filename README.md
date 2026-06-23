@@ -19,12 +19,11 @@ brew install pango
 On Debian/Ubuntu the equivalent is `apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0`.
 See the [WeasyPrint install docs](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html) for other platforms.
 
-Then set up the project:
+Then set up the project with [uv](https://docs.astral.sh/uv/):
 
 ```sh
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv venv
+uv pip install -e ".[dev]"
 ```
 
 ## Usage
@@ -44,7 +43,6 @@ ready to paste. The output folder is optional; when omitted it defaults to
 ## Teardown
 
 ```sh
-deactivate
 rm -rf .venv
 ```
 

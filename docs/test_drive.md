@@ -2,12 +2,11 @@
 
 ## Setup
 
-Create a virtual environment, activate it, and install the package with dev dependencies:
+Create a virtual environment and install the package with dev dependencies using [uv](https://docs.astral.sh/uv/):
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv venv
+uv pip install -e ".[dev]"
 ```
 
 The `-e` flag installs in editable mode — changes to source files take effect immediately without reinstalling.
@@ -17,13 +16,13 @@ PDF report generation needs WeasyPrint's native libraries; see [`README.md`](../
 ## Running Tests
 
 ```bash
-pytest tests/
+uv run pytest tests/
 ```
 
 To see verbose output:
 
 ```bash
-pytest tests/ -v
+uv run pytest tests/ -v
 ```
 
 ## Using the CLI
@@ -103,6 +102,5 @@ sleepydatapeek report sample.csv --groupby city
 ## Teardown
 
 ```bash
-deactivate
 rm -rf .venv
 ```

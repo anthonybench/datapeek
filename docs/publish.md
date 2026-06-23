@@ -4,7 +4,7 @@ How to publish `sleepydatapeek` to PyPI with [Poetry](https://python-poetry.org/
 
 ## Prerequisites
 
-- Poetry installed (`pipx install poetry`).
+- Poetry installed (`uv tool install poetry`).
 - A PyPI account with maintainer access to the `sleepydatapeek` project.
 - A PyPI API token, configured once:
 
@@ -52,5 +52,5 @@ How to publish `sleepydatapeek` to PyPI with [Poetry](https://python-poetry.org/
 5. Verify the release:
 
    ```sh
-   pip install --upgrade sleepydatapeek
+   uv tool install --upgrade sleepydatapeek
    ```
