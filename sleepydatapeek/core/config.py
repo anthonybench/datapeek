@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from sleepydatapeek.core.sleepy_params import DEFAULT_PARAMS, loadSleepyParams
+from sleepydatapeek.core.sleepy_params import loadSleepyParams, requireParam
 
 
 @dataclass(frozen=True)
@@ -39,8 +39,8 @@ def getConfig() -> AppConfig:
     """
 
     params = loadSleepyParams()
-    sample_size = params.get("datapeek_sample_size", DEFAULT_PARAMS["datapeek_sample_size"])
-    table_style = params.get("datapeek_table_style", DEFAULT_PARAMS["datapeek_table_style"])
+    sample_size = requireParam(params, "datapeek_sample_size")
+    table_style = requireParam(params, "datapeek_table_style")
 
     return AppConfig(
         sample_rows=int(sample_size),

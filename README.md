@@ -48,13 +48,22 @@ rm -rf .venv
 
 ## Configuration
 
-`sleepydatapeek` is a *sleepy util* and reads shared settings from
-`~/sleepyconfig/params.yml`. On first run the file is created with defaults and
-a note is printed to the console. Relevant keys:
+`sleepydatapeek` is a *sleepy util* and reads its settings from the shared
+`~/sleepyconfig/params.yml`. Each sleepy util owns only its own `<tool>_<name>`
+keys; sleepydatapeek uses the `datapeek_` prefix. If the file is absent,
+sleepydatapeek writes only its own section and prints a note. If a value it
+needs is missing, it prints that section and asks you to verify your config.
+Keys:
 
 - `datapeek_sample_size` — number of rows shown in the sample table.
 - `datapeek_table_style` — [tabulate](https://pypi.org/project/tabulate/) table
   style used for the sample/detail tables (e.g. `rounded_grid`, `github`).
+
+```yaml
+# sleepydatapeek
+datapeek_sample_size: 5
+datapeek_table_style: rounded_grid
+```
 
 ## Documentation
 

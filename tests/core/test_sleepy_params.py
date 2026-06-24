@@ -35,8 +35,8 @@ def testLoadSleepyParamsWritesDefaultsWhenMissing(
     assert params_path.exists()
     assert params["datapeek_sample_size"] == 5
     assert params["datapeek_table_style"] == "rounded_grid"
-    assert params["convert_output_archive_dir"] is None
-    assert any("wrote defaults" in message for message in messages)
+    assert "convert_output_archive_dir" not in params
+    assert any("defaults" in message for message in messages)
 
 
 def testGetConfigReflectsCustomParams(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
