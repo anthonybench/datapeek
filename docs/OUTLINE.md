@@ -35,7 +35,9 @@ sleepydatapeek/
 ├── docs/                         # Single-purpose documentation files
 │   ├── SPEC.md                   # Application specification
 │   ├── OUTLINE.md                # This file
-│   └── test_drive.md             # Setup, testing, and CLI usage guide
+│   ├── test_drive.md             # Setup, testing, and CLI usage guide
+│   ├── new_command.md            # How to add a new command
+│   └── publish.md                # Release to PyPI
 ├── _ephemeral/                   # Scratch space (sample data, generated output)
 ├── AGENTS.md                     # Conventions for code, scripts, docs, and tooling
 ├── README.md                     # Project overview, deploy, and teardown

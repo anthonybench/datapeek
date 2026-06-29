@@ -70,4 +70,5 @@ datapeek_table_style: rounded_grid
 - [Specification](docs/SPEC.md) — what the tool does
 - [Project outline](docs/OUTLINE.md) — repository layout
 - [Test drive](docs/test_drive.md) — setup, testing, and CLI usage
+- [Adding a command](docs/new_command.md) — how to extend the CLI
 - [Publishing](docs/publish.md) — release to PyPI with Poetry
