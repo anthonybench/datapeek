@@ -1,0 +1,5 @@
+- Support `man sleepydatapeek` (strategy A: ship a generated man page + a self-install command).
+  - Generate `sleepydatapeek.1` (roff, section 1) from a Markdown source at build/release time, keeping the CLI `--help`/docs as the single source of truth (e.g. `typer sleepydatapeek.main utils docs` → `pandoc -s -t man`, or `click-man`).
+  - Ship the generated `sleepydatapeek.1` inside the package as data (poetry-core doesn't handle arbitrary `data_files` into `share/man` cleanly, so bundle it in the package dir and read it at runtime).
+  - Add a `--install-man` flag (pre-scanned like `--version`) or a `man --install` subcommand that copies the page to `~/.local/share/man/man1/sleepydatapeek.1`, creating dirs and best-effort running `mandb`/`makewhatis`.
+  - This lands on MANPATH via the `~/.local/bin` → `~/.local/share/man` PATH-sibling rule (works on macOS/BSD man and Linux/man-db), so `man sleepydatapeek` works after one no-sudo command. Verify locally with `man -l sleepydatapeek.1` first.

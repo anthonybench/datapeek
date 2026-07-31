@@ -45,6 +45,7 @@ datapeek_table_style: rounded_grid   # any tabulate style (simple, github, …)
 | --- | --- |
 | [`summary`](#summary) | Print an overview, schema, and sample of a file |
 | [`report`](#report) | Write a markdown + PDF report with charts |
+| [`about`](#about) | Print the project's PyPI + GitHub links |
 
 ---
 
@@ -121,6 +122,18 @@ Reveal in Finder: open -R /Users/dingus/work/sales_report/sales.pdf
 ```
 
 The folder gets the markdown, the PDF, and chart PNGs (null-counts and distinct-counts per column). `report` only accepts data files.
+
+## `about`
+
+Print the installed version alongside the project's public PyPI and GitHub links.
+
+```console
+$ sleepydatapeek about
+
+sleepydatapeek 2.3.1
+PyPI:   https://pypi.org/project/sleepydatapeek/
+GitHub: https://github.com/anthonybench/datapeek
+```
 
 ## Development
 
