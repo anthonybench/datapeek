@@ -1,68 +1,131 @@
-# sleepydatapeek
+<div align="center">
 
-`sleepydatapeek` is a small Typer-based CLI for quickly inspecting tabular data files and generating markdown + PDF reports with summary charts.
+# 🔎 sleepydatapeek
+
+**Peek at local data files fast — instant summaries and pretty markdown/PDF reports.**
+
+[![PyPI](https://img.shields.io/pypi/v/sleepydatapeek.svg)](https://pypi.org/project/sleepydatapeek/)
+[![Python](https://img.shields.io/pypi/pyversions/sleepydatapeek.svg)](https://pypi.org/project/sleepydatapeek/)
+[![License](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](LICENSE)
+
+</div>
+
+`sleepydatapeek` is a [Typer](https://typer.tiangolo.com/) CLI for taking a quick look at tabular data files — print a tidy overview + schema + sample of any `csv`/`parquet`/`json`/`pkl`/`xlsx` (and metadata for `pdf`/images), or generate a shareable markdown + PDF report with charts.
+
+## Install
+
+```sh
+uv tool install sleepydatapeek     # or: pipx install sleepydatapeek
+```
+
+**Native libraries:** PDF reports use [WeasyPrint](https://weasyprint.org/), which needs pango/cairo/gdk-pixbuf. On macOS: `brew install pango`. On Debian/Ubuntu: `apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0`. See the [WeasyPrint docs](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html) for other platforms.
+
+## Configure
+
+`sleepydatapeek` is a _sleepy util_ and reads its settings from the shared `~/sleepyconfig/params.yml`, using the `datapeek_` key prefix. If the file is absent it writes **only its own section** (below) and says so; if a value it needs is missing it prints this snippet and asks you to verify your config.
+
+```yaml
+# sleepydatapeek
+datapeek_sample_size: 5              # rows shown in the sample table
+datapeek_table_style: rounded_grid   # any tabulate style (simple, github, …)
+```
 
 ## Supported files
 
-- Data files: `csv`, `parquet`, `json`, `pkl`, `xlsx`
-- Metadata files: `pdf`, `png`, `jpg`, `jpeg`
+| Kind | Extensions |
+| --- | --- |
+| **Data** (schema + sample) | `csv`, `parquet`, `json`, `pkl`, `xlsx` |
+| **Metadata** (file facts) | `pdf`, `png`, `jpg`, `jpeg` |
 
-## Deploy
+## Commands
 
-PDF report generation uses [WeasyPrint](https://weasyprint.org/), which depends on
-native libraries (pango, cairo, gdk-pixbuf). On macOS install them with Homebrew first:
+| Command | What it does |
+| --- | --- |
+| [`summary`](#summary) | Print an overview, schema, and sample of a file |
+| [`report`](#report) | Write a markdown + PDF report with charts |
 
-```sh
-brew install pango
+---
+
+## `summary`
+
+Print a concise overview, schema, and sample of a data file. Table style + sample size come from your [config](#configure).
+
+```console
+$ sleepydatapeek summary sales.csv
+
+╭─────────────┬───────────╮
+│ File        │ sales.csv │
+├─────────────┼───────────┤
+│ File size   │ 1.02 MB   │
+├─────────────┼───────────┤
+│ Rows        │ 15230     │
+├─────────────┼───────────┤
+│ Columns     │ 6         │
+├─────────────┼───────────┤
+│ Index       │ index     │
+├─────────────┼───────────┤
+│ Index dtype │ int64     │
+╰─────────────┴───────────╯
+
+Schema
+╭────────────┬─────────╮
+│ order_id   │ int64   │
+├────────────┼─────────┤
+│ region     │ object  │
+├────────────┼─────────┤
+│ product    │ object  │
+├────────────┼─────────┤
+│ quantity   │ int64   │
+├────────────┼─────────┤
+│ revenue    │ float64 │
+├────────────┼─────────┤
+│ ordered_at │ object  │
+╰────────────┴─────────╯
+
+Sample (5 rows)
+╭────┬────────────┬────────────┬───────────┬────────────┬───────────┬──────────────╮
+│    │   order_id │ region     │ product   │   quantity │   revenue │ ordered_at   │
+├────┼────────────┼────────────┼───────────┼────────────┼───────────┼──────────────┤
+│  0 │       1001 │ us-west-2  │ Widget    │          3 │     59.97 │ 2026-01-04   │
+├────┼────────────┼────────────┼───────────┼────────────┼───────────┼──────────────┤
+│  1 │       1002 │ eu-west-1  │ Gizmo     │          1 │     12.5  │ 2026-01-04   │
+├────┼────────────┼────────────┼───────────┼────────────┼───────────┼──────────────┤
+│  2 │       1003 │ us-west-2  │ Sprocket  │          5 │    210    │ 2026-01-05   │
+├────┼────────────┼────────────┼───────────┼────────────┼───────────┼──────────────┤
+│  3 │       1004 │ ap-south-1 │ Widget    │          2 │     39.98 │ 2026-01-05   │
+├────┼────────────┼────────────┼───────────┼────────────┼───────────┼──────────────┤
+│  4 │       1005 │ eu-west-1  │ Cog       │          4 │      8    │ 2026-01-06   │
+╰────┴────────────┴────────────┴───────────┴────────────┴───────────┴──────────────╯
 ```
 
-On Debian/Ubuntu the equivalent is `apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0`.
-See the [WeasyPrint install docs](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html) for other platforms.
+Point it at a `pdf` or image instead and it prints that file's metadata (dimensions, page count, EXIF, …) in the same style. When a table is too wide, extra columns are elided with a `⚠️ too wide` note.
 
-Then set up the project with [uv](https://docs.astral.sh/uv/):
+## `report`
+
+Generate a markdown report + rendered PDF + summary charts for a data file. The PDF is copied to your clipboard (macOS) so it's ready to paste. `--groupby <column>` adds a grouped row-count table; the output folder defaults to `<file>_report`.
+
+```console
+$ sleepydatapeek report sales.csv --groupby region
+
+Report folder: /Users/dingus/work/sales_report
+Relative path: sales_report
+  markdown: sales.md
+  pdf:      sales.pdf
+PDF copied to clipboard — ready to paste.
+Open with Zed: zed /Users/dingus/work/sales_report
+Open with VS Code: code /Users/dingus/work/sales_report
+Open PDF: open /Users/dingus/work/sales_report/sales.pdf
+Reveal in Finder: open -R /Users/dingus/work/sales_report/sales.pdf
+```
+
+The folder gets the markdown, the PDF, and chart PNGs (null-counts and distinct-counts per column). `report` only accepts data files.
+
+## Development
 
 ```sh
 uv venv
 uv pip install -e ".[dev]"
-```
-
-## Usage
-
-```sh
-sleepydatapeek summary path/to/data.csv
-sleepydatapeek summary path/to/resume.pdf
-sleepydatapeek report path/to/data.csv path/to/output_dir --groupby ProductName
-sleepydatapeek report path/to/data.csv  # output folder defaults to ./<file>_report
-```
-
-The `report` command writes the markdown, rendered PDF, and chart images into the
-output folder, and copies the generated PDF onto the clipboard (macOS) so it is
-ready to paste. The output folder is optional; when omitted it defaults to
-`<file>_report` in the current working directory.
-
-## Teardown
-
-```sh
-rm -rf .venv
-```
-
-## Configuration
-
-`sleepydatapeek` is a *sleepy util* and reads its settings from the shared
-`~/sleepyconfig/params.yml`. Each sleepy util owns only its own `<tool>_<name>`
-keys; sleepydatapeek uses the `datapeek_` prefix. If the file is absent,
-sleepydatapeek writes only its own section and prints a note. If a value it
-needs is missing, it prints that section and asks you to verify your config.
-Keys:
-
-- `datapeek_sample_size` — number of rows shown in the sample table.
-- `datapeek_table_style` — [tabulate](https://pypi.org/project/tabulate/) table
-  style used for the sample/detail tables (e.g. `rounded_grid`, `github`).
-
-```yaml
-# sleepydatapeek
-datapeek_sample_size: 5
-datapeek_table_style: rounded_grid
+uv run pytest          # or ./tools/test.sh
 ```
 
 ## Documentation
@@ -71,4 +134,4 @@ datapeek_table_style: rounded_grid
 - [Project outline](docs/OUTLINE.md) — repository layout
 - [Test drive](docs/test_drive.md) — setup, testing, and CLI usage
 - [Adding a command](docs/new_command.md) — how to extend the CLI
-- [Publishing](docs/publish.md) — release to PyPI with Poetry
+- [Publishing](docs/publish.md) — release to PyPI
