@@ -18,6 +18,8 @@
 uv tool install sleepydatapeek     # or: pipx install sleepydatapeek
 ```
 
+> `-v` / `--version` prints the version and best-effort checks PyPI for a newer release — it works even when placed within another command.
+
 **Native libraries:** PDF reports use [WeasyPrint](https://weasyprint.org/), which needs pango/cairo/gdk-pixbuf. On macOS: `brew install pango`. On Debian/Ubuntu: `apt install libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0`. See the [WeasyPrint docs](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html) for other platforms.
 
 ## Configure
